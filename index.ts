@@ -163,7 +163,67 @@ async function getVersions() {
 }
 
 function saveToFile(list: VSCode[]) {
-  let md = `# VSCode Version Watcher\n\nLast Update: ${
+  let md = `# VSCode Version Watcher\n\n`;
+  let alertLevel = 0;
+
+  if (list.length > 1) {
+    if (list[0].electron && list[1].electron) {
+      const ev1 = (list[0].electron as string).split('.');
+      const ev2 = (list[1].electron as string).split('.');
+      if (ev1[0] > ev2[0] || ev1[1] && ev2[1] && ev1[1] > ev2[1]) {
+        alertLevel = 2;
+      }
+
+      const nv1 = (list[0].node as string).split('.');
+      const nv2 = (list[1].node as string).split('.');
+      if (nv1[0] > nv2[0] || nv1[1] && nv2[1] && nv1[1] > nv2[1]) {
+        alertLevel = 2;
+      }
+
+      const cv1 = (list[0].chrome as string).split('.');
+      const cv2 = (list[1].chrome as string).split('.');
+      if (cv1[0] > cv2[0] || cv1[1] && cv2[1] && cv1[1] > cv2[1]) {
+        alertLevel = 2;
+      }
+    }
+
+    if (list.length > 2 && !alertLevel) {
+      const ev1 = (list[1].electron as string).split('.');
+      const ev2 = (list[2].electron as string).split('.');
+      if (ev1[0] > ev2[0] || ev1[1] && ev2[1] && ev1[1] > ev2[1]) {
+        alertLevel = 1;
+      }
+
+      const nv1 = (list[1].node as string).split('.');
+      const nv2 = (list[2].node as string).split('.');
+      if (nv1[0] > nv2[0] || nv1[1] && nv2[1] && nv1[1] > nv2[1]) {
+        alertLevel = 1;
+      }
+
+      const cv1 = (list[1].chrome as string).split('.');
+      const cv2 = (list[2].chrome as string).split('.');
+      if (cv1[0] > cv2[0] || cv1[1] && cv2[1] && cv1[1] > cv2[1]) {
+        alertLevel = 1;
+      }
+    }
+  }
+
+  switch (alertLevel) {
+    case 0:
+      md += `\`\`\`diff\n++ No change in recent release. ++\n\`\`\`\n\n`;
+      break;
+    case 1:
+      md += `\`\`\`diff\n@@ Notice: Change in current release. @@\n\`\`\`\n\n`;
+      break;
+    case 2:
+      md +=
+          `\`\`\`diff\n-- Warning! Change in the next release. --\n\`\`\`\n\n`;
+      break;
+    default:
+      break;
+  }
+
+  md += `Last Update: ${
       new Date().toISOString().slice(
           0,
           10)}\n\n| VS Code | Electron | Node | Chrome |\n|:-------:|:--------:|:----:|:------:|`;
