@@ -1,5 +1,7 @@
-#VSCode Version Watcher
+# VSCode Version Watcher
+
 Last Update: 2018-04-20
+
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
 | Latest | 2.0.0-beta.7 | 8.9.3 | 61.0.3163.100 |
