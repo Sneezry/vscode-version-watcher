@@ -163,10 +163,10 @@ async function getVersions() {
 }
 
 function saveToFile(list: VSCode[]) {
-  let md = `#VSCode Version Watcher\nLast Update: ${
+  let md = `#VSCode Version Watcher\n\nLast Update: ${
       new Date().toISOString().slice(
           0,
-          10)}\n| VS Code | Electron | Node | Chrome |\n|:-------:|:--------:|:----:|:------:|`;
+          10)}\n\n| VS Code | Electron | Node | Chrome |\n|:-------:|:--------:|:----:|:------:|`;
   list.forEach(version => {
     md += `\n| ${version.vscode} | ${version.electron || 'n/a'} | ${
         version.node || 'n/a'} | ${version.chrome || 'n/a'} |`;
