@@ -43,7 +43,7 @@ async function fetchVSCodeVersion() {
   const uri = `https://api.github.com/repos/Microsoft/vscode/tags?client_id=${
       process.env.GITHUB_CLIENT_ID}&client_secret=${
       process.env.GITHUB_CLIENT_SECRET}`;
-  const tags: string[] = [];
+  const tags: string[] = ['master'];
   const res = await githubRequest<Tag[]>(uri);
   res.forEach(list => {
     list.forEach(tag => {
@@ -150,7 +150,7 @@ async function getVersions() {
     const nodeVersion = await getNodeVersion(electronVersion);
 
     const tag: VSCode = {
-      vscode: version,
+      vscode: version === 'master' ? 'Latest' : version,
       electron: electronVersion,
       chrome: chromeVersion,
       node: nodeVersion
@@ -163,13 +163,16 @@ async function getVersions() {
 }
 
 function saveToFile(list: VSCode[]) {
-  let md =
-      `| VS Code | Electron | Node | Chrome |\n|:-------:|:--------:|:----:|:------:|`;
+  let md = `#VSCode Version Watcher\nLast Update: ${
+      new Date().toISOString().slice(
+          0,
+          10)}\n| VS Code | Electron | Node | Chrome |\n|:-------:|:--------:|:----:|:------:|`;
   list.forEach(version => {
     md += `\n| ${version.vscode} | ${version.electron || 'n/a'} | ${
         version.node || 'n/a'} | ${version.chrome || 'n/a'} |`;
   });
   fs.writeFileSync('README.md', md);
+  list.shift();
   fs.writeFileSync('version.json', JSON.stringify(list));
 }
 
