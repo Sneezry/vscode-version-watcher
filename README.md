@@ -1,5 +1,9 @@
 # VSCode Version Watcher
 
+```diff
+-- Warning! Change in the next release. --
+```
+
 Last Update: 2018-04-20
 
 | VS Code | Electron | Node | Chrome |
