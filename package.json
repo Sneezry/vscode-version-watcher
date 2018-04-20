@@ -1,0 +1,32 @@
+{
+  "name": "vscode-version-watcher",
+  "version": "0.0.1",
+  "description": "",
+  "main": "out/index.js",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "check": "gts check",
+    "clean": "gts clean",
+    "fix": "gts fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sneezry/vscode-electron-node-watcher.git"
+  },
+  "author": "Zhe Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sneezry/vscode-electron-node-watcher/issues"
+  },
+  "homepage": "https://github.com/Sneezry/vscode-electron-node-watcher#readme",
+  "devDependencies": {
+    "@types/fs-plus": "^3.0.0",
+    "@types/request-promise": "^4.1.41",
+    "gts": "^0.5.4"
+  },
+  "dependencies": {
+    "fs-plus": "^3.0.2",
+    "request-promise": "^4.2.2"
+  }
+}
