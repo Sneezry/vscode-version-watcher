@@ -163,7 +163,7 @@ async function getVersions() {
 }
 
 function saveToFile(list: VSCode[]) {
-  let md = `#VSCode Version Watcher\n\nLast Update: ${
+  let md = `# VSCode Version Watcher\n\nLast Update: ${
       new Date().toISOString().slice(
           0,
           10)}\n\n| VS Code | Electron | Node | Chrome |\n|:-------:|:--------:|:----:|:------:|`;
