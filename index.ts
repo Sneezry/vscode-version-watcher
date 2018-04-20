@@ -182,7 +182,7 @@ function saveToFile(list: VSCode[]) {
 
       const cv1 = (list[0].chrome as string).split('.');
       const cv2 = (list[1].chrome as string).split('.');
-      if (cv1[0] > cv2[0] || cv1[1] && cv2[1] && cv1[1] > cv2[1]) {
+      if (cv1[0] > cv2[0]) {
         alertLevel = 2;
       }
     }
@@ -202,7 +202,7 @@ function saveToFile(list: VSCode[]) {
 
       const cv1 = (list[1].chrome as string).split('.');
       const cv2 = (list[2].chrome as string).split('.');
-      if (cv1[0] > cv2[0] || cv1[1] && cv2[1] && cv1[1] > cv2[1]) {
+      if (cv1[0] > cv2[0]) {
         alertLevel = 1;
       }
     }
