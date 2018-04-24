@@ -223,8 +223,10 @@ function saveToFile(list: VSCode[]) {
       break;
   }
 
-  md +=
-      `| VS Code | Electron | Node | Chrome |\n|:-------:|:--------:|:----:|:------:|`;
+  md += `Last update: ${
+      new Date().toISOString().replace(
+          /(T|\..*)/g,
+          ' ')}GMT\n\n| VS Code | Electron | Node | Chrome |\n|:-------:|:--------:|:----:|:------:|`;
   list.forEach(version => {
     md += `\n| ${version.vscode} | ${version.electron || 'n/a'} | ${
         version.node || 'n/a'} | ${version.chrome || 'n/a'} |`;
