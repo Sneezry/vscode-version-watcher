@@ -4,6 +4,8 @@
 ++ No change in recent release. ++
 ```
 
+Last update: 2018-04-24 09:47:50 GMT
+
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
 | Latest | 1.7.12 | 7.9.0 | 58.0.3029.110 |
