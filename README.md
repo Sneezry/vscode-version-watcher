@@ -4,7 +4,7 @@
 ++ No change in recent release. ++
 ```
 
-Last update: 2018-04-26 10:36:03 GMT
+Last update: 2018-04-26 10:37:06 GMT
 
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
