@@ -8,6 +8,10 @@ os:
 
 dist: trusty
 
+branches:
+  only:
+  - staging
+
 install:
 - npm install -g typescript
 - npm install -g gts
