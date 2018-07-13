@@ -12,6 +12,14 @@ interface VSCode {
   chrome: string|undefined;
 }
 
+interface Issue {
+  url: string,
+  title: string,
+  body: string,
+  created_at: string,
+  updated_at: string
+}
+
 const VERSION = require('../version.json') as VSCode[];
 
 async function githubRequest<T>(uri: string): Promise<T[]> {
@@ -113,7 +121,7 @@ async function getNodeVersion(electronVersion: string) {
       nodeSha}/src/node_version.h?client_id=${
       process.env.GITHUB_CLIENT_ID}&client_secret=${
       process.env.GITHUB_CLIENT_SECRET}`;
-  const nodeVersionHeaderFile = await await request(
+  const nodeVersionHeaderFile = await request(
       {uri: nodeVersionUri, headers: {'User-Agent': 'VSCode Version Watcher'}});
   const nodeMajorVersionMatches =
       nodeVersionHeaderFile.match(/NODE_MAJOR_VERSION (\d+)/);
@@ -128,6 +136,18 @@ async function getNodeVersion(electronVersion: string) {
         nodePatchVersionMatches[1]}`;
   }
   return undefined;
+}
+
+async function getIssues() {
+  const issueUri = 'https://api.github.com/search/issues?q=is%3Aissue+archived%3Afalse+label%3Aelectron-update+is%3Aopen';
+  const issueApiRes = await request({uri: issueUri, headers: {'User-Agent': 'VSCode Version Watcher'}, json: true}) as {items: Issue[]};
+  const issueList = issueApiRes.items;
+  let md = '\n\n## Open Issue About Electron Update\n\n| Title | Create | Update | Content |\n| :---: | :----: | :----: | :-----: |\n';
+  for (let issue of issueList) {
+    md += `| ${issue.title} | ${issue.created_at} | ${issue.updated_at} | ${issue.body} |\n`;
+  }
+
+  return md;
 }
 
 async function getVersions() {
@@ -162,7 +182,7 @@ async function getVersions() {
   return versionList.concat(VERSION);
 }
 
-function saveToFile(list: VSCode[]) {
+async function saveToFile(list: VSCode[]) {
   let md = `# VSCode Version Watcher\n\n`;
   let alertLevel = 0;
 
@@ -231,6 +251,8 @@ function saveToFile(list: VSCode[]) {
     md += `\n| ${version.vscode} | ${version.electron || 'n/a'} | ${
         version.node || 'n/a'} | ${version.chrome || 'n/a'} |`;
   });
+
+  md += await getIssues();
   fs.writeFileSync('README.md', md);
   list.shift();
   fs.writeFileSync('version.json', JSON.stringify(list));
@@ -238,7 +260,7 @@ function saveToFile(list: VSCode[]) {
 
 async function start() {
   const list = await getVersions();
-  saveToFile(list);
+  await saveToFile(list);
   console.log('Finished!');
 }
 
