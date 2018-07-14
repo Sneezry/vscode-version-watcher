@@ -4,7 +4,7 @@
 ++ No change in recent release. ++
 ```
 
-Last update: 2018-07-13 18:19:43 GMT
+Last update: 2018-07-14 18:20:35 GMT
 
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
@@ -91,7 +91,7 @@ Last update: 2018-07-13 18:19:43 GMT
 
 | Title | Create | Update | Content |
 | :---: | :----: | :----: | :-----: |
-| Chokidar crashes on vscode source folder when started from command line | 2018-06-21T10:27:02Z | 2018-07-13T12:47:21Z | * launch vscode from terminal via `code-insiders` and open vscode repo.
+| Chokidar crashes on vscode source folder when started from command line | 2018-06-21T10:27:02Z | 2018-07-14T07:57:34Z | * launch vscode from terminal via `code-insiders` and open vscode repo.
 ![image](https://user-images.githubusercontent.com/5047891/41713718-4977f85c-754e-11e8-85c7-5aa53b40faa8.png)
 
 Note: when launching from the dock the file watcher works. Also, the nsfw version works. Also, the search service (using the same infrastructure) works. |
@@ -214,7 +214,7 @@ VS Code version: Code - Insiders 1.23.0-insider (c1cd4378c5e5dc434ed959e13556d05
 OS version: Windows_NT x64 10.0.16299
 
 Can't reproduce in stable. |
-| macOS Electron 2.0.x: crash when opening an extension from extensions list | 2018-04-17T03:39:08Z | 2018-07-09T15:44:41Z | VSCode always quit unexpectedlly on macOS when i clicked any extension on extensions-sidemenu.
+| macOS Electron 2.0.x: crash when opening an extension from extensions list | 2018-04-17T03:39:08Z | 2018-07-14T06:53:58Z | VSCode always quit unexpectedlly on macOS when i clicked any extension on extensions-sidemenu.
 Here is the detail:
 ```
 Process:               Electron [7791]
