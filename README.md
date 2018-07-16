@@ -1,10 +1,12 @@
 # VSCode Version Watcher
 
+Follow on Twitter [@VscodeW](https://twitter.com/VscodeW)!
+
 ```diff
 ++ No change in recent release. ++
 ```
 
-Last update: 2018-07-16 03:40:26 GMT
+Last update: 2018-07-16 06:34:02 GMT
 
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
@@ -97,4 +99,3 @@ Last update: 2018-07-16 03:40:26 GMT
 | [Scaling over multiple displays stops rendering characters](https://github.com/Microsoft/vscode/issues/51576) | [bgraeb](https://github.com/bgraeb) | 2018-06-11T07:07:57Z | 2018-07-12T15:50:52Z|
 | [Traces of deleted links showing in editor when deleting](https://github.com/Microsoft/vscode/issues/48321) | [usernamehw](https://github.com/usernamehw) | 2018-04-21T09:20:47Z | 2018-06-18T09:57:39Z|
 | [macOS Electron 2.0.x: crash when opening an extension from extensions list](https://github.com/Microsoft/vscode/issues/48022) | [WalterZou](https://github.com/WalterZou) | 2018-04-17T03:39:08Z | 2018-07-14T06:53:58Z|
-| [[pending] NVDA reads the previous line in the editor unexpectedly when it is proceeded by a single newline](https://github.com/Microsoft/vscode/issues/41386) | [Neurrone](https://github.com/Neurrone) | 2018-01-10T10:19:41Z | 2018-07-10T11:03:25Z|
