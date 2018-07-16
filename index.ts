@@ -272,11 +272,13 @@ async function saveToFile(list: VSCode[]) {
 async function postTweet() {
   const tweetEndpoint = process.env.TWEET_ENDPOINT;
   if (!tweetEndpoint) {
+    console.log('No tweet endpoint found.');
     return;
   }
 
   const tweetEndpointMatches = tweetEndpoint.match(/:\/\/(.*?):443(.*)/);
   if (!tweetEndpointMatches) {
+    console.log('Tweet endpoint does not match the rule.');
     return;
   }
 
@@ -290,6 +292,8 @@ async function postTweet() {
       'Content-Length': tweet.length
     }
   }, res => {
+    console.log('Tweet:', tweet);
+    console.log('Tweet published.');
     return Promise.resolve();
   });
 
