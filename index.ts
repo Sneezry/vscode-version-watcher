@@ -1,5 +1,6 @@
 import * as fs from 'fs-plus';
 import * as request from 'request-promise';
+import * as https from 'https';
 
 interface Tag {
   name: string;
@@ -25,6 +26,8 @@ interface Issue {
 }
 
 const VERSION = require('../version.json') as VSCode[];
+
+let tweet = '#VSCodeWatcher ';
 
 async function githubRequest<T>(uri: string): Promise<T[]> {
   const result = [];
@@ -151,6 +154,7 @@ async function getIssues() {
     md += `| [${issue.title}](${issue.html_url}) | [${issue.user.login}](${issue.user.html_url}) | ${issue.created_at} | ${issue.updated_at}|\n`;
   }
 
+  tweet += `${issueList.length} open issue(s) about Electron update. `
   return md;
 }
 
@@ -187,7 +191,7 @@ async function getVersions() {
 }
 
 async function saveToFile(list: VSCode[]) {
-  let md = `# VSCode Version Watcher\n\n`;
+  let md = `# VSCode Version Watcher\n\nFollow on Twitter [@VscodeW](https://twitter.com/VscodeW)!\n\n`;
   let alertLevel = 0;
 
   if (list.length > 1) {
@@ -235,13 +239,16 @@ async function saveToFile(list: VSCode[]) {
   switch (alertLevel) {
     case 0:
       md += `\`\`\`diff\n++ No change in recent release. ++\n\`\`\`\n\n`;
+      tweet += 'No change in recent release. ';
       break;
     case 1:
       md += `\`\`\`diff\n@@ Notice: Change in current release. @@\n\`\`\`\n\n`;
+      tweet += 'Notice: Change in current release. ';
       break;
     case 2:
       md +=
           `\`\`\`diff\n-- Warning! Change in the next release. --\n\`\`\`\n\n`;
+      tweet += 'Warning! Change in the next release. ';
       break;
     default:
       break;
@@ -262,9 +269,40 @@ async function saveToFile(list: VSCode[]) {
   fs.writeFileSync('version.json', JSON.stringify(list));
 }
 
+async function postTweet() {
+  const tweetEndpoint = process.env.TWEET_ENDPOINT;
+  if (!tweetEndpoint) {
+    return;
+  }
+
+  const tweetEndpointMatches = tweetEndpoint.match(/:\/\/(.*?):443(.*)/);
+  if (!tweetEndpointMatches) {
+    return;
+  }
+
+  const hostname = tweetEndpointMatches[1];
+  const path = tweetEndpointMatches[2];
+  const req = https.request({
+    hostname,
+    path,
+    method: 'POST',
+    headers: {
+      'Content-Length': tweet.length
+    }
+  }, res => {
+    return Promise.resolve();
+  });
+
+  req.write(tweet);
+  req.end;
+  return;
+}
+
 async function start() {
   const list = await getVersions();
   await saveToFile(list);
+  tweet += 'https://github.com/Sneezry/vscode-version-watcher#vscode-version-watcher';
+  await postTweet();
   console.log('Finished!');
 }
 
