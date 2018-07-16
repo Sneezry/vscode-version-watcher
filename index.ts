@@ -270,6 +270,7 @@ async function saveToFile(list: VSCode[]) {
 }
 
 async function postTweet() {
+  console.log('Posting tweet...');
   const tweetEndpoint = process.env.TWEET_ENDPOINT;
   if (!tweetEndpoint) {
     console.log('No tweet endpoint found.');
@@ -284,21 +285,30 @@ async function postTweet() {
 
   const hostname = tweetEndpointMatches[1];
   const path = tweetEndpointMatches[2];
-  const req = https.request({
-    hostname,
-    path,
-    method: 'POST',
-    headers: {
-      'Content-Length': tweet.length
-    }
-  }, res => {
-    console.log('Tweet:', tweet);
-    console.log('Tweet published.');
-    return Promise.resolve();
-  });
+  console.log(hostname);
+  console.log(tweet.length);
 
-  req.write(tweet);
-  req.end;
+  try {
+    const req = https.request({
+      hostname,
+      path,
+      port: 443,
+      method: 'POST',
+      headers: {
+        'Content-Length': tweet.length
+      }
+    }, res => {
+      console.log('Tweet:', tweet);
+      console.log('Tweet published.');
+      return Promise.resolve();
+    });
+  
+    req.write(tweet);
+    req.end;
+  } catch(error) {
+    console.log(error);
+  }
+  
   return;
 }
 
