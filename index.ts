@@ -271,23 +271,31 @@ async function saveToFile(list: VSCode[]) {
 
 async function postTweet() {
   console.log('Posting tweet...');
-  const tweetEndpoint = process.env.TWEET_ENDPOINT;
-  if (!tweetEndpoint) {
-    console.log('No tweet endpoint found.');
+  // const tweetEndpoint = process.env.TWEET_ENDPOINT;
+  // if (!tweetEndpoint) {
+  //   console.log('No tweet endpoint found.');
+  //   console.log(JSON.stringify(process.env, null, 2));
+  //   return;
+  // }
+
+  // const tweetEndpointMatches = tweetEndpoint.match(/:\/\/(.*?):443(.*)/);
+  // if (!tweetEndpointMatches) {
+  //   console.log('Tweet endpoint does not match the rule.');
+  //   return;
+  // }
+
+  // const hostname = tweetEndpointMatches[1];
+  // const path = tweetEndpointMatches[2];
+  // console.log(hostname);
+  // console.log(tweet.length);
+
+  if (!process.env.TWEET_SIG) {
+    console.log('No tweet endpoint sig found.');
     console.log(JSON.stringify(process.env, null, 2));
     return;
   }
-
-  const tweetEndpointMatches = tweetEndpoint.match(/:\/\/(.*?):443(.*)/);
-  if (!tweetEndpointMatches) {
-    console.log('Tweet endpoint does not match the rule.');
-    return;
-  }
-
-  const hostname = tweetEndpointMatches[1];
-  const path = tweetEndpointMatches[2];
-  console.log(hostname);
-  console.log(tweet.length);
+  const hostname = 'prod-20.eastasia.logic.azure.com';
+  const path = '/workflows/eeca0144a1874ed48c1d5ac217f5a5ab/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=' + process.env.TWEET_SIG;
 
   try {
     const req = https.request({
