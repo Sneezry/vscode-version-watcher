@@ -271,23 +271,6 @@ async function saveToFile(list: VSCode[]) {
 
 async function postTweet() {
   console.log('Posting tweet...');
-  // const tweetEndpoint = process.env.TWEET_ENDPOINT;
-  // if (!tweetEndpoint) {
-  //   console.log('No tweet endpoint found.');
-  //   console.log(JSON.stringify(process.env, null, 2));
-  //   return;
-  // }
-
-  // const tweetEndpointMatches = tweetEndpoint.match(/:\/\/(.*?):443(.*)/);
-  // if (!tweetEndpointMatches) {
-  //   console.log('Tweet endpoint does not match the rule.');
-  //   return;
-  // }
-
-  // const hostname = tweetEndpointMatches[1];
-  // const path = tweetEndpointMatches[2];
-  // console.log(hostname);
-  // console.log(tweet.length);
 
   if (!process.env.TWEET_SIG) {
     console.log('No tweet endpoint sig found.');
