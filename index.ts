@@ -274,6 +274,7 @@ async function postTweet() {
   const tweetEndpoint = process.env.TWEET_ENDPOINT;
   if (!tweetEndpoint) {
     console.log('No tweet endpoint found.');
+    console.log(JSON.stringify(process.env, null, 2));
     return;
   }
 
