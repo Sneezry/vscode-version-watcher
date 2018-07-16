@@ -6,7 +6,7 @@ Follow on Twitter [@VscodeW](https://twitter.com/VscodeW)!
 ++ No change in recent release. ++
 ```
 
-Last update: 2018-07-16 07:20:56 GMT
+Last update: 2018-07-16 18:21:47 GMT
 
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
@@ -93,7 +93,7 @@ Last update: 2018-07-16 07:20:56 GMT
 
 | Title | Creator | Create | Update |
 | :---:| :-----: | :----: | :----: |
-| [Chokidar crashes on vscode source folder when started from command line](https://github.com/Microsoft/vscode/issues/52583) | [alexandrudima](https://github.com/alexandrudima) | 2018-06-21T10:27:02Z | 2018-07-14T07:57:34Z|
+| [Chokidar crashes on vscode source folder when started from command line](https://github.com/Microsoft/vscode/issues/52583) | [alexandrudima](https://github.com/alexandrudima) | 2018-06-21T10:27:02Z | 2018-07-16T16:13:47Z|
 | [Electron 2.0.x: characters render duplicated when opacity is used in editor](https://github.com/Microsoft/vscode/issues/52196) | [ggovan](https://github.com/ggovan) | 2018-06-18T12:58:27Z | 2018-07-12T14:01:41Z|
 | [Electron 2.0.x : extreme blur around the entire application (Windows 10)](https://github.com/Microsoft/vscode/issues/51789) | [MeikTranel](https://github.com/MeikTranel) | 2018-06-13T18:17:53Z | 2018-07-12T14:57:09Z|
 | [Scaling over multiple displays stops rendering characters](https://github.com/Microsoft/vscode/issues/51576) | [bgraeb](https://github.com/bgraeb) | 2018-06-11T07:07:57Z | 2018-07-12T15:50:52Z|
