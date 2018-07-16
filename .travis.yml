@@ -8,6 +8,9 @@ os:
 
 dist: trusty
 
+env:
+- TWEET_ENDPOINT=$TWEET_ENDPOINT
+
 install:
 - npm install -g typescript
 - npm install -g gts
