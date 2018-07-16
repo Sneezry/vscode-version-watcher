@@ -13,11 +13,15 @@ interface VSCode {
 }
 
 interface Issue {
-  url: string,
+  html_url: string,
   title: string,
   body: string,
   created_at: string,
-  updated_at: string
+  updated_at: string,
+  user: {
+    login: string,
+    html_url: string
+  }
 }
 
 const VERSION = require('../version.json') as VSCode[];
@@ -142,9 +146,9 @@ async function getIssues() {
   const issueUri = 'https://api.github.com/search/issues?q=is%3Aissue+archived%3Afalse+label%3Aelectron-update+is%3Aopen';
   const issueApiRes = await request({uri: issueUri, headers: {'User-Agent': 'VSCode Version Watcher'}, json: true}) as {items: Issue[]};
   const issueList = issueApiRes.items;
-  let md = '\n\n## Open Issue About Electron Update\n\n| Title | Create | Update | Content |\n| :---: | :----: | :----: | :-----: |\n';
+  let md = '\n\n## Open Issue About Electron Update\n\n| Title | Creator | Create | Update |\n| :---:| :-----: | :----: | :----: |\n';
   for (let issue of issueList) {
-    md += `| ${issue.title} | ${issue.created_at} | ${issue.updated_at} | ${issue.body} |\n`;
+    md += `| [${issue.title}](${issue.html_url}) | [${issue.user.login}](${issue.user.html_url}) | ${issue.created_at} | ${issue.updated_at}|\n`;
   }
 
   return md;
