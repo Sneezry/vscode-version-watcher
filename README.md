@@ -6,11 +6,12 @@ Follow on Twitter [@VscodeW](https://twitter.com/VscodeW)!
 ++ No change in recent release. ++
 ```
 
-Last update: 2018-11-11 19:25:24 GMT
+Last update: 2018-11-12 19:26:00 GMT
 
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
 | Latest | 2.0.12 | 8.9.3 | 61.0.3163.100 |
+| 1.29.0 | 2.0.12 | 8.9.3 | 61.0.3163.100 |
 | 1.28.2 | 2.0.9 | 8.9.3 | 61.0.3163.100 |
 | 1.28.1 | 2.0.9 | 8.9.3 | 61.0.3163.100 |
 | 1.28.0 | 2.0.9 | 8.9.3 | 61.0.3163.100 |
