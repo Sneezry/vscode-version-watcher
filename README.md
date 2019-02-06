@@ -3,14 +3,15 @@
 Follow on Twitter [@VscodeW](https://twitter.com/VscodeW)!
 
 ```diff
--- Warning! Change in the next release. --
+@@ Notice: Change in current release. @@
 ```
 
-Last update: 2019-02-05 20:11:33 GMT
+Last update: 2019-02-06 20:11:55 GMT
 
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
-| Latest | 3.1.2 | 10.2.0 | 66.0.3359.181 |
+| Latest | 3.1.3 | 10.2.0 | 66.0.3359.181 |
+| 1.31.0 | 3.1.2 | 10.2.0 | 66.0.3359.181 |
 | 1.30.2 | 2.0.12 | 8.9.3 | 61.0.3163.100 |
 | 1.30.1 | 2.0.12 | 8.9.3 | 61.0.3163.100 |
 | 1.30.0 | 2.0.12 | 8.9.3 | 61.0.3163.100 |
