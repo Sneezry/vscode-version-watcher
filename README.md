@@ -6,7 +6,7 @@ Follow on Twitter [@VscodeW](https://twitter.com/VscodeW)!
 ++ No change in recent release. ++
 ```
 
-Last update: 2019-03-28 20:52:58 GMT
+Last update: 2019-03-29 20:38:16 GMT
 
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
