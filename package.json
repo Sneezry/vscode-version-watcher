@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Sneezry/vscode-electron-node-watcher#readme",
   "devDependencies": {
     "@types/fs-plus": "^3.0.0",
+    "@types/node": "^12.12.14",
     "@types/request-promise": "^4.1.41",
     "gts": "^0.5.4"
   },

@@ -97,30 +97,60 @@ async function getElectron(vscodeVersion: string) {
 }
 
 async function getChromeVersion(electronVersion: string) {
-  const uri = `https://raw.githubusercontent.com/electron/electron/v${
-      electronVersion}/atom/common/chrome_version.h?client_id=${
-      process.env.GITHUB_CLIENT_ID}&client_secret=${
-      process.env.GITHUB_CLIENT_SECRET}`;
-  const chromeVersionHeaderFile =
-      await request({uri, headers: {'User-Agent': 'VSCode Version Watcher'}});
-  const versionMatches =
-      chromeVersionHeaderFile.match(/CHROME_VERSION_STRING "(.*?)"/);
   let chromeVersion: string|undefined = undefined;
-  if (versionMatches && versionMatches.length > 1) {
+  try {
+    const uri = `https://raw.githubusercontent.com/electron/electron/v${
+        electronVersion}/atom/common/chrome_version.h?client_id=${
+        process.env.GITHUB_CLIENT_ID}&client_secret=${
+        process.env.GITHUB_CLIENT_SECRET}`;
+    const chromeVersionHeaderFile =
+        await request({uri, headers: {'User-Agent': 'VSCode Version Watcher'}});
+    const versionMatches =
+        chromeVersionHeaderFile.match(/CHROME_VERSION_STRING "(.*?)"/);
+    if (versionMatches && versionMatches.length > 1) {
+      chromeVersion = versionMatches[1] as string;
+    }
+  } catch {
+    const uri = `https://raw.githubusercontent.com/electron/electron/v${
+        electronVersion}/DEPS?client_id=${
+        process.env.GITHUB_CLIENT_ID}&client_secret=${
+        process.env.GITHUB_CLIENT_SECRET}`;
+    const deps =
+        await request({uri, headers: {'User-Agent': 'VSCode Version Watcher'}});
+    const versionMatches = deps.match(/'chromium_version':[\s\r\n]+'([0-9\.]+)'/);
     chromeVersion = versionMatches[1] as string;
   }
+  
   return chromeVersion;
 }
 
 async function getNodeVersion(electronVersion: string) {
-  const uri =
-      `https://api.github.com/repos/electron/electron/contents/vendor/node?ref=v${
-          electronVersion}&client_id=${
-          process.env.GITHUB_CLIENT_ID}&client_secret=${
-          process.env.GITHUB_CLIENT_SECRET}`;
-  const nodeSubModule = await request(
-      {uri, headers: {'User-Agent': 'VSCode Version Watcher'}, json: true});
-  const nodeSha = nodeSubModule.sha;
+  let nodeSha:string|undefined;
+  try {
+    const uri =
+    `https://api.github.com/repos/electron/electron/contents/vendor/node?ref=v${
+        electronVersion}&client_id=${
+        process.env.GITHUB_CLIENT_ID}&client_secret=${
+        process.env.GITHUB_CLIENT_SECRET}`;
+    const nodeSubModule = await request(
+        {uri, headers: {'User-Agent': 'VSCode Version Watcher'}, json: true});
+    nodeSha = nodeSubModule.sha;
+  } catch {
+    const uri = `https://raw.githubusercontent.com/electron/electron/v${
+        electronVersion}/DEPS?client_id=${
+        process.env.GITHUB_CLIENT_ID}&client_secret=${
+        process.env.GITHUB_CLIENT_SECRET}`;
+    const deps =
+        await request({uri, headers: {'User-Agent': 'VSCode Version Watcher'}});
+    const versionMatches = deps.match(/'node_version':[\s\r\n]+'(v?[0-9a-f\.]+)'/);
+    const versionOrSha = versionMatches[1] as string;
+    if (/^v/.test(versionOrSha)) {
+      return versionOrSha.substr(1);
+    }
+
+    nodeSha = versionOrSha;
+  }
+
   if (!nodeSha) {
     return undefined;
   }
@@ -174,8 +204,11 @@ async function getVersions() {
 
     console.log(`Fetching ${version}...`);
     const electronVersion = await getElectron(version);
+    console.log('Electron:', electronVersion);
     const chromeVersion = await getChromeVersion(electronVersion);
+    console.log('Chrome:', chromeVersion);
     const nodeVersion = await getNodeVersion(electronVersion);
+    console.log('Node:', nodeVersion);
 
     const tag: VSCode = {
       vscode: version === 'master' ? 'Latest' : version,
@@ -191,7 +224,7 @@ async function getVersions() {
 }
 
 async function saveToFile(list: VSCode[]) {
-  let md = `# VSCode Version Watcher\n\nFollow on Twitter [@VscodeW](https://twitter.com/VscodeW)!\n\n`;
+  let md = `# VSCode Version Watcher\n\n`;
   let alertLevel = 0;
 
   if (list.length > 1) {
@@ -269,46 +302,10 @@ async function saveToFile(list: VSCode[]) {
   fs.writeFileSync('version.json', JSON.stringify(list));
 }
 
-async function postTweet() {
-  console.log('Posting tweet...');
-
-  if (!process.env.TWEET_SIG) {
-    console.log('No tweet endpoint sig found.');
-    console.log(JSON.stringify(process.env, null, 2));
-    return;
-  }
-  const hostname = 'prod-20.eastasia.logic.azure.com';
-  const path = '/workflows/eeca0144a1874ed48c1d5ac217f5a5ab/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=' + process.env.TWEET_SIG;
-
-  try {
-    const req = https.request({
-      hostname,
-      path,
-      port: 443,
-      method: 'POST',
-      headers: {
-        'Content-Length': tweet.length
-      }
-    }, res => {
-      console.log('Tweet:', tweet);
-      console.log('Tweet published.');
-      return Promise.resolve();
-    });
-  
-    req.write(tweet);
-    req.end;
-  } catch(error) {
-    console.log(error);
-  }
-  
-  return;
-}
-
 async function start() {
   const list = await getVersions();
   await saveToFile(list);
   tweet += 'https://github.com/Sneezry/vscode-version-watcher#vscode-version-watcher';
-  await postTweet();
   console.log('Finished!');
 }
 
