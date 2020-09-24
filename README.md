@@ -4,7 +4,7 @@
 -- Warning! Change in the next release. --
 ```
 
-Last update: 2020-09-23 21:54:02 GMT
+Last update: 2020-09-24 21:54:46 GMT
 
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
