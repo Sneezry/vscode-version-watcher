@@ -1,14 +1,14 @@
 # VSCode Version Watcher
 
 ```diff
--- Warning! Change in the next release. --
+++ No change in recent release. ++
 ```
 
-Last update: 2020-09-27 21:57:08 GMT
+Last update: 2020-09-28 21:57:16 GMT
 
 | VS Code | Electron | Node | Chrome |
 |:-------:|:--------:|:----:|:------:|
-| Latest | 9.3.0 | 12.14.1 | 83.0.4103.122 |
+| Latest | 9.2.1 | 12.14.1 | 83.0.4103.122 |
 | 1.49.2 | 9.2.1 | 12.14.1 | 83.0.4103.122 |
 | 1.49.1 | 9.2.1 | 12.14.1 | 83.0.4103.122 |
 | 1.49.0 | 9.2.1 | 12.14.1 | 83.0.4103.122 |
